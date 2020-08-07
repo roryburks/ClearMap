@@ -1,7 +1,7 @@
 package clearmap.middleware
 
 import clearmap.backend.IMasterService
-import clearmap.frontend.RootWindow
+import clearmapJvm.frontend.RootWindow
 import javax.swing.WindowConstants
 
 interface  IFrameManagementSvc {

@@ -1,4 +1,4 @@
-package clearmap.frontend
+package clearmapJvm.frontend
 
 import clearmap.backend.IMasterService
 import sgui.menus.MenuItem
