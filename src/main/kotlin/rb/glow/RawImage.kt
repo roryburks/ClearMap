@@ -1,7 +1,5 @@
 package rb.glow
 
-import rb.glow.color.Colors
-
 
 /**
  * RawImage is a wrapper for multiple different types of more-native image formats.

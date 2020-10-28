@@ -6,12 +6,10 @@ import com.jogamp.opengl.GLEventListener
 import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLJPanel
 import rb.glow.GraphicsContext
-import rb.glow.IGraphicsContext
-import rb.glow.color.Colors
+import rb.glow.Colors
 import rb.glow.gle.GLGraphicsContext
 import rbJvm.glow.jogl.JOGLProvider
 import sgui.components.IComponent
-import sguiSwing.components.ISwComponent
 import sguiSwing.components.SwComponent
 import sguiSwing.hybrid.Hybrid
 

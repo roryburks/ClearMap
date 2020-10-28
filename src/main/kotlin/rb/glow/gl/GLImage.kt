@@ -2,8 +2,8 @@ package rb.glow.gl
 
 import rb.glow.RawImage
 import rb.glow.RawImage.InvalidImageDimensionsExeption
-import rb.glow.color.toColor
-import rb.glow.color.toColorPremultiplied
+import rb.glow.toColor
+import rb.glow.toColorPremultiplied
 import rb.glow.gle.GLGraphicsContext
 import rb.glow.gle.GLParameters
 import rb.glow.gle.IGLEngine

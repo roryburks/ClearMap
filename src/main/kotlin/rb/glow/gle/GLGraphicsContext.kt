@@ -7,8 +7,8 @@ import rb.glow.GraphicsContext
 import rb.glow.IImage
 import rb.glow.JoinMethod.ROUNDED
 import rb.glow.LineAttributes
-import rb.glow.color.Color
-import rb.glow.color.Colors
+import rb.glow.Color
+import rb.glow.Colors
 import rb.glow.gl.GLC
 import rb.glow.gl.GLImage
 import rb.glow.gle.RenderCall.RenderAlgorithm

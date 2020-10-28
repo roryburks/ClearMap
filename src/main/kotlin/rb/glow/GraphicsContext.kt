@@ -3,7 +3,6 @@ package rb.glow
 import rb.extendo.dataStructures.Deque
 import rb.glow.CapMethod.NONE
 import rb.glow.JoinMethod.MITER
-import rb.glow.color.Color
 import rb.glow.gle.RenderRubric
 import rb.vectrix.linear.ITransformF
 import rb.vectrix.shapes.IShape
@@ -106,4 +105,5 @@ data class GraphicalState(
         val trans: ITransformF,
         val composite: Composite,
         val alpha: Float,
-        val color: Color)
+        val color: Color
+)

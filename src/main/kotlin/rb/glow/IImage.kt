@@ -1,7 +1,5 @@
 package rb.glow
 
-import rb.glow.color.Color
-
 
 interface IImage {
     /** Gets the Width of the underlying image.  */
