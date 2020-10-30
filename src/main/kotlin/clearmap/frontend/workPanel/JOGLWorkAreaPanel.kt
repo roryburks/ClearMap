@@ -5,9 +5,10 @@ import com.jogamp.opengl.GLCapabilities
 import com.jogamp.opengl.GLEventListener
 import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLJPanel
-import rb.glow.GraphicsContext
 import rb.glow.Colors
-import rb.glow.gle.GLGraphicsContext
+import rb.glow.IGraphicsContext
+import rb.glow.drawer
+import rb.glow.gl.GLGraphicsContext
 import rbJvm.glow.jogl.JOGLProvider
 import sgui.components.IComponent
 import sguiSwing.components.SwComponent
@@ -19,11 +20,11 @@ class JOGLWorkAreaPanel (
 {
     override val component: IComponent = SwComponent(canvas)
 
-    override fun injectDrawingRoutine(lambda: (GraphicsContext) -> Unit) { }
+    override fun injectDrawingRoutine(lambda: (IGraphicsContext) -> Unit) { }
 
-    private var _lambda: ((GraphicsContext) -> Unit)? = null
+    private var _lambda: ((IGraphicsContext) -> Unit)? = null
 
-    fun doDraw(gc : GraphicsContext) { _lambda?.invoke(gc) }
+    fun doDraw(gc : IGraphicsContext) { _lambda?.invoke(gc) }
 
 
     val listener = object : GLEventListener {
@@ -46,7 +47,7 @@ class JOGLWorkAreaPanel (
             gl.viewport(0, 0, w, h)
 
             glgc.color = Colors.RED
-            glgc.drawRect(10, 10, 200, 200)
+            glgc.drawer.drawRect(10.0, 10.0, 200.0, 200.0)
 
             doDraw(glgc)
             JOGLProvider.gl2 = null

@@ -1,11 +1,11 @@
 package clearmap.frontend.workPanel
 
-import rb.glow.GraphicsContext
+import rb.glow.IGraphicsContext
 import sgui.components.IComponent
 
 interface IWorkArea {
     val component : IComponent
-    fun injectDrawingRoutine(lambda: (GraphicsContext) -> Unit)
+    fun injectDrawingRoutine(lambda: (IGraphicsContext) -> Unit)
 }
 
 class WorkPanel(val _area : IWorkArea) : IComponent by _area.component

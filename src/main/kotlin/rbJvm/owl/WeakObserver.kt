@@ -1,6 +1,6 @@
 package rbJvm.owl
 
-import rb.IContract
+import rb.global.IContract
 import rb.extendo.dataStructures.SinglySequence
 import rb.owl.IObservable
 import rb.owl.IObserver
@@ -27,7 +27,8 @@ fun <T> IObservable<T>.addWeakObserver(t: T) : IContract =
 fun <T> IBindable<T>.addWeakObserver(t: (new: T, old: T)->Unit) : IContract =
         WeakObserverContract(this.addObserver(WeakObserver(t)),t)
 
-private class WeakObserverContract<T>(private val bindContract: IContract, t: T) : IContract {
+private class WeakObserverContract<T>(private val bindContract: IContract, t: T) :
+    IContract {
     var t: T? = t
     override fun void() {
         bindContract.void()

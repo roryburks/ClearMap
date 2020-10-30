@@ -1,7 +1,7 @@
 package sguiSwing.advancedComponents
 
-import rb.IContract
 import rb.extendo.delegates.OnChangeDelegate
+import rb.global.IContract
 import rbJvm.glow.SColor
 import rb.owl.bindable.Bindable
 import rb.owl.bindable.addObserver

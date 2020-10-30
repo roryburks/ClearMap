@@ -1,12 +1,12 @@
 package rbJvm.glow.awt
 
-import rb.glow.IImage
+import rb.glow.IImageConverter
 import rb.glow.exceptions.GLEException
 import rb.glow.gl.GLC
 import rb.glow.gl.GLImage
 import rb.glow.gl.IGL
 import rb.glow.gle.IGLEngine
-import rb.glow.gle.IImageConverter
+import rb.glow.img.IImage
 import rbJvm.glow.jogl.JOGL.JOGLTextureSource
 import java.nio.ByteBuffer
 import java.nio.IntBuffer
@@ -18,7 +18,7 @@ typealias InternalImage = GLImage
 class GLCreateTextureException(msg: String) : GLEException(msg)
 
 class AwtImageConverter(
-        val gleGetter : () -> IGLEngine?)
+    val gleGetter : () -> IGLEngine?)
     : IImageConverter
 
 {
@@ -76,21 +76,21 @@ class AwtImageConverter(
                 when( storage) {
                     is ByteArray -> {
                         gl.texImage2D(
-                                GLC.TEXTURE_2D,
-                                0,
-                                GLC.RGBA,
-                                GLC.RGBA,
-                                GLC.UNSIGNED_INT_8_8_8_8,
-                                JOGLTextureSource(image.bi.width, image.bi.height, ByteBuffer.wrap(storage)))
+                            GLC.TEXTURE_2D,
+                            0,
+                            GLC.RGBA,
+                            GLC.RGBA,
+                            GLC.UNSIGNED_INT_8_8_8_8,
+                            JOGLTextureSource(image.bi.width, image.bi.height, ByteBuffer.wrap(storage)))
                     }
                     is IntArray -> {
                         gl.texImage2D(
-                                GLC.TEXTURE_2D,
-                                0,
-                                GLC.RGBA,
-                                GLC.BGRA,
-                                GLC.UNSIGNED_INT_8_8_8_8_REV,
-                                JOGLTextureSource( image.bi.width, image.bi.height, IntBuffer.wrap(storage)))
+                            GLC.TEXTURE_2D,
+                            0,
+                            GLC.RGBA,
+                            GLC.BGRA,
+                            GLC.UNSIGNED_INT_8_8_8_8_REV,
+                            JOGLTextureSource( image.bi.width, image.bi.height, IntBuffer.wrap(storage)))
                     }
 
                 }

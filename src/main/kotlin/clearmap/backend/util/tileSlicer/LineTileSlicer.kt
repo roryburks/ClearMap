@@ -1,8 +1,8 @@
 package clearmap.backend.util.tileSlicer
 
-import rb.glow.IImage
 import rb.glow.Color
 import rb.glow.Colors
+import rb.glow.img.IImage
 import rb.vectrix.linear.Vec2i
 import rb.vectrix.shapes.RectI
 

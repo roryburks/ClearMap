@@ -1,6 +1,5 @@
 package clearmap.backend.map
 
-import rb.glow.IImage
 import rb.owl.bindable.Bindable
 
 

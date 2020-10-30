@@ -1,12 +1,9 @@
 package clearmapJvm
 
+import rb.glow.resources.IScriptService
 import sguiSwing.hybrid.MDebug
 import java.io.IOException
 import java.util.*
-
-interface IScriptService {
-    fun loadScript( scriptName: String) : String
-}
 
 class JClassScriptService : IScriptService {
     override fun loadScript(scriptName: String): String {

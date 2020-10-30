@@ -1,4 +1,6 @@
-package rb.glow
+package rb.glow.img
+
+import rb.glow.Color
 
 
 interface IImage {
@@ -7,13 +9,6 @@ interface IImage {
 
     /** Gets the Height of the underlying image.  */
     val height: Int
-
-    /** If true, the image is oriented with the Y-axis going upward, with
-     * 0,0 at the bottom-left.  If false, the image is oriented with the
-     * Y-axis goind downward, with 0,0 at the top-left.
-     */
-    // Why would an image care?  It's just data.
-    //val isGLOriented: Boolean
 
     /** Gets the amount of Bytes that the RawImage is using (generally
      * width*height*bytesPerPixel).  This should only be used to try and
@@ -42,10 +37,9 @@ interface IImage {
     fun getARGB(x: Int, y: Int): Int = getColor(x,y).argb32
     fun getColor(x: Int, y: Int): Color
 
-
-
     val byteStream: Sequence<Byte> get() = ByteWalker(this)
 }
+
 private class ByteWalker( val image: IImage) : Sequence<Byte> {
     override fun iterator(): Iterator<Byte>  = Iter()
 
@@ -79,7 +73,5 @@ private class ByteWalker( val image: IImage) : Sequence<Byte> {
             }
             return toReturn
         }
-
     }
-
 }
