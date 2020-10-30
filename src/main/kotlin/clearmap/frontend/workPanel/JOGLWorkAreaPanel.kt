@@ -47,7 +47,7 @@ class JOGLWorkAreaPanel (
             gl.viewport(0, 0, w, h)
 
             glgc.color = Colors.RED
-            glgc.drawer.drawRect(10.0, 10.0, 200.0, 200.0)
+            glgc.drawer.fillRect(10.0, 10.0, 40.0, 40.0)
 
             doDraw(glgc)
             JOGLProvider.gl2 = null

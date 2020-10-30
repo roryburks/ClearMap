@@ -2,13 +2,15 @@ package clearmap.backend.util.tileSlicer
 
 import rb.glow.Color
 import rb.glow.Colors
+import rb.glow.gl.GLImage
 import rb.glow.img.IImage
 import rb.vectrix.linear.Vec2i
 import rb.vectrix.shapes.RectI
+import spirite.specialRendering.fill.toIntArray
 
 
 interface ILineTileSlicer {
-    fun slice(image: IImage, color: Color = Colors.RED) : Collection<RectI>
+    fun slice(image: GLImage, color: Color = Colors.RED) : Collection<RectI>
 }
 
 object LineTileSlicer : ILineTileSlicer {
@@ -34,20 +36,22 @@ object LineTileSlicer : ILineTileSlicer {
      *
      * And then it does the same for the Right wall (if above succeeded).  Starting at (trX, trY+1), going down, looking left
      */
-    override fun slice(image: IImage, color: Color): Collection<RectI> {
+    override fun slice(image: GLImage, color: Color): Collection<RectI> {
         val argb = color.argb32
 
         // Step 1: Store all pixels of image of the given color into a hashset
+        val i = image.graphics.toIntArray()
         val redPositions = hashSetOf<Vec2i>()
         for (x in 0 until image.width) {
             for( y in 0 until image.height) {
-                if( image.getARGB(x,y) == argb)
+                if(i[x + y*image.width] == argb)
                     redPositions.add(Vec2i(x,y))
             }
         }
 
         // Step 2: Find top-left pixels.
         val topLeftRegions = redPositions
+
             .filter { (x,y) ->
                 redPositions.contains(Vec2i(x+1, y))  &&
                 redPositions.contains(Vec2i(x, y+1)) &&
