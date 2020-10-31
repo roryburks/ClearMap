@@ -17,7 +17,8 @@ object LineTileSlicerTests {
 
             val regions = LineTileSlicer.slice(img)
 
-            println(regions.count())
+            assert(regions.count() == 3)
+
         }
     }
 
