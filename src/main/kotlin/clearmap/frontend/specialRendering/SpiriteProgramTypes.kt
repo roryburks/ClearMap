@@ -28,25 +28,25 @@ class SquareGradientCall(
     companion object { const val Key = "SQARE_GRADIENT"}
 }
 
-//class ChangeColorCall(
-//        fromColor: Vec4f,
-//        toColor: Vec4f,
-//        changeMethod: ColorChangeMode)
-//    : IGlProgramCall
-//{
-//    override val uniforms: List<GLUniform>? = listOf(
-//            GLUniform4f("u_fromColor", fromColor),
-//            GLUniform4f("u_toColor", toColor),
-//            GLUniform1i("u_optionMask", when (changeMethod) {
-//                CHECK_ALL -> 0
-//                IGNORE_ALPHA -> 1
-//                AUTO -> 2
-//            }))
-//
-//    override val method: BlendMethod get() = MAX
-//    override val programKey: String get() = Key
-//    companion object { const val Key = "CHANGE_COLOR"}
-//}
+class ChangeColorCall(
+        fromColor: Vec4f,
+        toColor: Vec4f,
+        changeMethod: ColorChangeMode)
+    : IGlProgramCall
+{
+    override val uniforms: List<GLUniform>? = listOf(
+            GLUniform4f("u_fromColor", fromColor),
+            GLUniform4f("u_toColor", toColor),
+            GLUniform1i("u_optionMask", when (changeMethod) {
+                ColorChangeMode.CHECK_ALL -> 0
+                ColorChangeMode.IGNORE_ALPHA -> 1
+                ColorChangeMode.AUTO -> 2
+            }))
+
+    override val method: BlendMethod get() = MAX
+    override val programKey: String get() = Key
+    companion object { const val Key = "CHANGE_COLOR"}
+}
 
 class GridCall(
         color1: Vec3f,

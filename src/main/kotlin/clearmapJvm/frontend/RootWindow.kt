@@ -1,6 +1,7 @@
 package clearmapJvm.frontend
 
 import clearmap.backend.IMasterService
+import clearmap.frontend.root.RootController
 import clearmap.frontend.workPanel.WorkSectionView
 import sgui.menus.MenuItem
 import sguiSwing.components.SwMenuBar
@@ -17,27 +18,16 @@ class RootWindow(
     private  val _master : IMasterService)
     : JFrame()
 {
-    val work = WorkSectionView(_master, Hybrid.ui)
+    val controller = RootController(_master, Hybrid.ui)
     val panel = Hybrid.ui.CrossPanel()
 
     init {
-        val scheme = listOf<MenuItem<IMasterService>>(
-            MenuItem("&File"),
-            MenuItem(".&New Map"),
-            MenuItem(".&Load Map"),
-            MenuItem(".&Save Map"),
-            MenuItem(".Save Map &As")
-        )
+        val scheme = controller.menuScheme
         val bar = SwMenuBar()
         SwContextMenus(_master.commandExecutor).constructMenu(bar, scheme)
         jMenuBar = bar
 
-        panel.setLayout {
-            rows.addFlatGroup {
-                add(work, flex = 1f)
-                flex = 1f
-            }
-        }
+        controller.setLayout(panel)
 
         this.layout = GridLayout()
         this.add(panel.jcomponent)
