@@ -2,6 +2,7 @@ package clearmap.backend.commands
 
 import clearmap.backend.BackendDI
 import clearmap.backend.IDialog
+import clearmap.backend.IMasterService
 import clearmap.backend.map.TileSet
 import clearmap.backend.tiles.ITileService
 import clearmap.middleware.IFrameManagementSvc
@@ -9,7 +10,7 @@ import sgui.menus.ICommand
 import sgui.menus.ICommandExecutor
 import sgui.menus.KeyCommand
 
-private abstract class Command  : ICommand<TileSet?> {
+private abstract class Command  : ICommand<IMasterService> {
     abstract val command: String
     abstract fun execute(svc : ITileService, dialog: IDialog) : Boolean
 
@@ -18,7 +19,7 @@ private abstract class Command  : ICommand<TileSet?> {
     }
 
     override val commandString: String get() = "tile.$command"
-    override val keyCommand: KeyCommand<TileSet?> get() = KeyCommand(commandString)
+    override val keyCommand: KeyCommand<IMasterService> get() = KeyCommand(commandString)
 }
 
 private val _tileSetCommands = mutableMapOf<String, Command>()
@@ -36,7 +37,7 @@ class TileSetCommandExecutor(
 }
 
 object TileSetCommands {
-    val LoadTile :ICommand<TileSet?> = object : Command() {
+    val LoadTile :ICommand<IMasterService> = object : Command() {
         override val command: String get() = "load-tile"
 
         override fun execute(svc: ITileService, dialog: IDialog): Boolean {

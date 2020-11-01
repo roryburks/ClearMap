@@ -14,8 +14,8 @@ class SwingDialogue :IDialog {
 
         fc.choosableFileFilters.forEach { fc.removeChoosableFileFilter(it) }
         val filters=  listOf(
-            FileNameExtensionFilter("JPEG File", "jpg", "jpeg"),
             FileNameExtensionFilter("PNG File", "png"),
+            FileNameExtensionFilter("JPEG File", "jpg", "jpeg"),
             FileNameExtensionFilter("Bitmap File", "bmp"),
             fc.acceptAllFileFilter)
         filters.forEach { fc.addChoosableFileFilter(it) }
@@ -28,6 +28,8 @@ class SwingDialogue :IDialog {
         val result = fc.showOpenDialog(null)
         if( result == JFileChooser.APPROVE_OPTION) {
             var saveFile = fc.selectedFile
+
+            previousFileMap[kind] = saveFile.absolutePath
 
             return saveFile.canonicalPath
         }

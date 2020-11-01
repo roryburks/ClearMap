@@ -8,6 +8,7 @@ import com.jogamp.opengl.GLEventListener
 import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLJPanel
 import rb.glow.Colors
+import rb.glow.Composite
 import rb.glow.gl.GLGraphicsContext
 import rb.owl.bindable.addObserver
 import rbJvm.glow.jogl.JOGLProvider
@@ -17,6 +18,7 @@ import sgui.components.crossContainer.ICrossPanel
 import sguiSwing.components.SwComponent
 import sguiSwing.hybrid.Hybrid
 import spirite.specialRendering.GLSpecialDrawer
+import java.io.File
 
 class TileView(
     private val _master : IMasterService,
@@ -72,7 +74,10 @@ class TileDrawView(private val _service : ITileService) {
 
             val tile = _service.currentTile
             if( tile != null){
+                glgc.alpha = 1f
+                glgc.composite = Composite.SRC_OVER
                 glgc.renderImage(tile.image, 0.0, 0.0)
+                Hybrid.imageIO.saveImage(tile.image, File("C:\\bucket\\x2.png"))
             }
 
             JOGLProvider.gl2 = null

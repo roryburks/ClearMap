@@ -16,7 +16,7 @@ interface  IMasterService {
 }
 
 class MasterService : IMasterService{
-    override val commandExecutor = CentralCommandExecutor(this)
     override val frameManager: IFrameManagementSvc = FrameManagementSvc(this)
     override val tileSvc: ITileService = TileServiceProvider.svc.value
+    override val commandExecutor = CentralCommandExecutor(this)
 }

@@ -1,6 +1,7 @@
 package clearmap.frontend.root
 
 import clearmap.backend.IMasterService
+import clearmap.backend.commands.TileSetCommands
 import clearmap.frontend.tiles.TileView
 import clearmap.frontend.workPanel.WorkSectionView
 import sgui.components.IComponentProvider
@@ -23,7 +24,7 @@ class RootController(
         MenuItem(".Save Map &As"),
 
         MenuItem("&Tiles"),
-        MenuItem(".&Load Image as Tile")
+        MenuItem(".&Load Image as Tile", command = TileSetCommands.LoadTile)
     )
 
     fun setLayout(panel : ICrossPanel) {
