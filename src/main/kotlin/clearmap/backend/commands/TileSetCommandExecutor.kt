@@ -1,13 +1,10 @@
 package clearmap.backend.commands
 
 import clearmap.backend.BackendDI
-import clearmap.backend.IDialog
+import clearmap.backend.external.IDialog
 import clearmap.backend.IMasterService
-import clearmap.backend.map.TileSet
 import clearmap.backend.tiles.ITileService
-import clearmap.middleware.IFrameManagementSvc
 import sgui.menus.ICommand
-import sgui.menus.ICommandExecutor
 import sgui.menus.KeyCommand
 
 private abstract class Command  : ICommand<IMasterService> {

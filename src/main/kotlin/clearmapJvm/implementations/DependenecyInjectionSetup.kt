@@ -1,6 +1,8 @@
-package clearmapJvm
+package clearmapJvm.implementations
 
 import clearmap.backend.BackendDI
+import clearmapJvm.ClearMapLogger
+import clearmapJvm.setupSwGuiStuff
 import rb.global.GlobalDependencySet
 import rbJvm.glow.JvmGLowDependencyInjection
 import rbJvm.vectrix.SetupVectrixForJvm
@@ -13,6 +15,7 @@ object DependenecyInjectionSetup {
         GlobalDependencySet.Logger = lazy { ClearMapLogger }
         JvmGLowDependencyInjection.setDi(EngineLaunchpoint.gle)
 
-        BackendDI.dialog = lazy { SwingDialogue()}
+        BackendDI.configLayer = lazy { JvmConfigLayer(DependenecyInjectionSetup.javaClass) }
+        BackendDI.dialog = lazy { SwingDialogue(BackendDI.configLayer.value) }
     }
 }
