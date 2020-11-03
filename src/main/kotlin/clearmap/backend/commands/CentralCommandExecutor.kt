@@ -1,16 +1,20 @@
 package clearmap.backend.commands
 
 import clearmap.backend.IMasterService
+import clearmap.backend.tiles.ITileService
+import clearmap.backend.tiles.TileServiceProvider
 import sgui.menus.ICommandExecutor
 
 interface ICentralCommandExecutor : ICommandExecutor
 
-class CentralCommandExecutor(master:IMasterService) : ICentralCommandExecutor {
+class CentralCommandExecutor(
+    tileSvc: ITileService
+) : ICentralCommandExecutor {
     val subs :Map<String,ISubCommandExecutor>
 
     init {
         val ces = listOf<ISubCommandExecutor>(
-            TileSetCommandExecutor(master.tileSvc)
+            TileSetCommandExecutor(tileSvc)
         )
         subs = ces
             .map { Pair(it.domain, it )}
@@ -27,3 +31,6 @@ class CentralCommandExecutor(master:IMasterService) : ICentralCommandExecutor {
     }
 }
 
+object CentralCommandExecutorProvider {
+    val Svc : Lazy<ICentralCommandExecutor> = lazy { CentralCommandExecutor(TileServiceProvider.svc.value)  }
+}

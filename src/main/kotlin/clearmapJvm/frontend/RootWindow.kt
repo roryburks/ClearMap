@@ -1,6 +1,8 @@
 package clearmapJvm.frontend
 
 import clearmap.backend.IMasterService
+import clearmap.backend.commands.CentralCommandExecutorProvider
+import clearmap.backend.commands.ICentralCommandExecutor
 import clearmap.frontend.root.RootController
 import clearmap.frontend.workPanel.WorkSectionView
 import sgui.menus.MenuItem
@@ -15,16 +17,17 @@ import javax.swing.SwingUtilities
 
 
 class RootWindow(
-    private  val _master : IMasterService)
-    : JFrame()
+    private  val _master : IMasterService,
+    private val _commandExecutor : ICentralCommandExecutor = CentralCommandExecutorProvider.Svc.value
+) : JFrame()
 {
-    val controller = RootController(_master, Hybrid.ui)
+    val controller = RootController(Hybrid.ui)
     val panel = Hybrid.ui.CrossPanel()
 
     init {
         val scheme = controller.menuScheme
         val bar = SwMenuBar()
-        SwContextMenus(_master.commandExecutor).constructMenu(bar, scheme)
+        SwContextMenus(_commandExecutor).constructMenu(bar, scheme)
         jMenuBar = bar
 
         controller.setLayout(panel)

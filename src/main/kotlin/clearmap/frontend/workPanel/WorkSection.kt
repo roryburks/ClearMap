@@ -7,7 +7,6 @@ import sgui.components.IComponentProvider
 import sgui.components.crossContainer.ICrossPanel
 
 class WorkSectionView(
-    private val master: IMasterService,
     private val ui: IComponentProvider,
     private val panel : ICrossPanel = ui.CrossPanel()
 )  : IComponent by panel

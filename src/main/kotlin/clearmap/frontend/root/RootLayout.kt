@@ -10,11 +10,10 @@ import sgui.components.crossContainer.ICrossPanel
 import sgui.menus.MenuItem
 
 class RootController(
-    private val _master: IMasterService,
     private val _ui: IComponentProvider
 ) {
-    val work = WorkSectionView(_master, _ui)
-    val tileView = TileView(_master, _ui)
+    val work = WorkSectionView(_ui)
+    val tileView = TileView(_ui)
 
     val menuScheme get() = listOf<MenuItem<IMasterService>>(
         MenuItem("&File"),

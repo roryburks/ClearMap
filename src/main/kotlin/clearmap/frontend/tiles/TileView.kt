@@ -1,5 +1,6 @@
 package clearmap.frontend.tiles
 
+import clearmap.backend.BackendDI
 import clearmap.backend.IMasterService
 import clearmap.backend.tiles.ITileService
 import com.jogamp.opengl.GLAutoDrawable
@@ -21,16 +22,16 @@ import spirite.specialRendering.GLSpecialDrawer
 import java.io.File
 
 class TileView(
-    private val _master : IMasterService,
     private val _ui: IComponentProvider,
-    private val _panel: ICrossPanel)
-    : IComponent by _panel
+    private val _panel: ICrossPanel,
+    private val _tileSvc : ITileService = BackendDI.tileSvc.value
+): IComponent by _panel
 {
-    constructor( master: IMasterService,ui: IComponentProvider)
-            : this(master, ui, ui.CrossPanel())
+    constructor( ui: IComponentProvider)
+            : this(ui, ui.CrossPanel())
 
     val label = _ui.Label("Test")
-    val drawView = TileDrawView(_master.tileSvc)
+    val drawView = TileDrawView(_tileSvc)
 
     init {
         _panel.setLayout {
@@ -40,7 +41,7 @@ class TileView(
         }
     }
 
-    val tileObsK = _master.tileSvc.currentTileBind.addObserver { new, old -> drawView.component.redraw() }
+    val tileObsK = _tileSvc.currentTileBind.addObserver { new, old -> drawView.component.redraw() }
 
 
 }
