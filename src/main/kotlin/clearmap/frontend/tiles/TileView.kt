@@ -3,6 +3,7 @@ package clearmap.frontend.tiles
 import clearmap.backend.BackendDI
 import clearmap.backend.IMasterService
 import clearmap.backend.tiles.ITileService
+import clearmap.backend.tiles.TileSelection
 import com.jogamp.opengl.GLAutoDrawable
 import com.jogamp.opengl.GLCapabilities
 import com.jogamp.opengl.GLEventListener
@@ -10,6 +11,7 @@ import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLJPanel
 import rb.glow.Colors
 import rb.glow.Composite
+import rb.glow.drawer
 import rb.glow.gl.GLGraphicsContext
 import rb.owl.bindable.addObserver
 import rbJvm.glow.jogl.JOGLProvider
@@ -33,7 +35,7 @@ class TileView(
     val label = _ui.Label("Test")
     val drawView = TileDrawView(_tileSvc)
 
-    init {
+    init /* Layout */ {
         _panel.setLayout {
             rows.add(label)
             rows.add(drawView.component)
@@ -41,14 +43,30 @@ class TileView(
         }
     }
 
-    val tileObsK = _tileSvc.currentTileBind.addObserver { new, old -> drawView.component.redraw() }
 
+    init /* Interaction */ {
+    }
 
+    // Binding Contracts
+    val tileObsK = _tileSvc.currentTileBind.addObserver { _, _ -> drawView.component.redraw() }
+    val tileSelObsK = _tileSvc.tileSelectionBind.addObserver{ _, _ -> drawView.component.redraw()  }
 }
 
 class TileDrawView(private val _service : ITileService) {
     val canvas = GLJPanel(GLCapabilities(GLProfile.getDefault()))
     val component: IComponent = SwComponent(canvas)
+
+    init /* Interaction */ {
+        component.onMouseClick += { evt ->
+            val currentTileSet = _service.currentTile
+            if( currentTileSet != null){
+                val region = currentTileSet.tiles
+                    .firstOrNull{ it.contains(evt.point.x, evt.point.y)}
+                if( region != null)
+                    _service.tileSelection = TileSelection(currentTileSet, region)
+            }
+        }
+    }
 
     val listener = object  : GLEventListener {
         override fun reshape(drawable: GLAutoDrawable, x: Int, y: Int, width: Int, height: Int) { }
@@ -76,9 +94,14 @@ class TileDrawView(private val _service : ITileService) {
             val tile = _service.currentTile
             if( tile != null){
                 glgc.alpha = 1f
-                glgc.composite = Composite.SRC_OVER
                 glgc.renderImage(tile.image, 0.0, 0.0)
                 Hybrid.imageIO.saveImage(tile.image, File("C:\\bucket\\x2.png"))
+            }
+            val tileSel = _service.tileSelection
+            if( tileSel != null){
+                glgc.alpha = 0.3f
+                glgc.color = Colors.YELLOW
+                glgc.drawer.fillRect(tileSel.region)
             }
 
             JOGLProvider.gl2 = null
