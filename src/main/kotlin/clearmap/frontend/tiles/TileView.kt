@@ -32,7 +32,7 @@ class TileView(
     constructor( ui: IComponentProvider)
             : this(ui, ui.CrossPanel())
 
-    val label = _ui.Label("Test")
+    val label = _ui.Label("TileSets")
     val drawView = TileDrawView(_tileSvc)
 
     init /* Layout */ {

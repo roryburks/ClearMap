@@ -84,7 +84,7 @@ class GLSpecialDrawer(private val _gc: GLGraphicsContext) : ISpecialDrawer{
     override fun drawTransparencyBg(x: Int, y: Int, w: Int, h: Int, squareSize: Int, color1: Color, color2: Color) {
         _gc.run {
             applyPassProgram(
-                    GridCall(Colors.GRAY.rgbComponent, Colors.LIGHT_GRAY.rgbComponent, squareSize),cachedParams, transform, x.f, y.f, w.f, h.f)
+                    GridCall(color1.rgbComponent, color2.rgbComponent, squareSize),cachedParams, transform, x.f, y.f, w.f, h.f)
         }
     }
 

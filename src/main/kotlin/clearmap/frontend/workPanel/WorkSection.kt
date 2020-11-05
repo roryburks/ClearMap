@@ -1,6 +1,8 @@
 package clearmap.frontend.workPanel
 
 import clearmap.backend.IMasterService
+import clearmap.frontend.workPanel.map.MapWorkController
+import clearmap.frontend.workPanel.map.MapWorkControllerProvider
 import sgui.Orientation
 import sgui.components.IComponent
 import sgui.components.IComponentProvider
@@ -8,7 +10,9 @@ import sgui.components.crossContainer.ICrossPanel
 
 class WorkSectionView(
     private val ui: IComponentProvider,
-    private val panel : ICrossPanel = ui.CrossPanel()
+    private val panel : ICrossPanel = ui.CrossPanel(),
+    private val workAreaPanel: IWorkAreaPanel = JOGLWorkAreaPanel(),
+    private val controller : MapWorkController = MapWorkControllerProvider.controller.value
 )  : IComponent by panel
 {
     private val workAreaContainer = ui.CrossPanel()
@@ -22,14 +26,15 @@ class WorkSectionView(
         vScroll.scrollWidth = 50
         hScroll.scrollWidth = 50
 
-        val glWorkArea = JOGLWorkAreaPanel()
         //hScroll.scrollBind.addObserver { new, _ -> currentView?.offsetX = new * scrollRatio}
         //vScroll.scrollBind.addObserver { new, _ -> currentView?.offsetY = new * scrollRatio}
-        workAreaContainer.setLayout { rows.add(glWorkArea.component) }
+        workAreaContainer.setLayout { rows.add(workAreaPanel.component) }
         //workAreaContainer.onMouseWheelMoved
 
         //workAreaContainer.onResize += {calibrateScrolls()}
         //Hybrid.timing.createTimer(15, true) {Hybrid.gle.runInGLContext { penner.step() }}
+
+        workAreaPanel.injectDrawingRoutine { controller.draw(it) }
 
         coordinateLabel.text = "Coordinate Label"
 

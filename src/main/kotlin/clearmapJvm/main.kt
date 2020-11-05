@@ -15,9 +15,6 @@ class ClearMapJvm {
     private lateinit var _master  : IMasterService
 
     fun run() {
-        val str = "kind;C:\\file\\dir"
-        val loc = str.indexOf(';')
-        println(str.substring(0,loc))
         try{
             SwingUtilities.invokeAndWait {
                 // For reasons that I will never understand, it is very important that nothing references EngineLaunchpoint.gle

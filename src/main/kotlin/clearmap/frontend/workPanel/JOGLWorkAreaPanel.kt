@@ -16,11 +16,11 @@ import sguiSwing.hybrid.Hybrid
 
 class JOGLWorkAreaPanel (
     val canvas: GLJPanel = GLJPanel(GLCapabilities(GLProfile.getDefault()))
-) : IWorkArea
+) : IWorkAreaPanel
 {
     override val component: IComponent = SwComponent(canvas)
 
-    override fun injectDrawingRoutine(lambda: (IGraphicsContext) -> Unit) { }
+    override fun injectDrawingRoutine(lambda: (IGraphicsContext) -> Unit) { _lambda = lambda}
 
     private var _lambda: ((IGraphicsContext) -> Unit)? = null
 
@@ -45,9 +45,6 @@ class JOGLWorkAreaPanel (
 
             val gl = gle.gl
             gl.viewport(0, 0, w, h)
-
-            glgc.color = Colors.RED
-            glgc.drawer.fillRect(10.0, 10.0, 40.0, 40.0)
 
             doDraw(glgc)
             JOGLProvider.gl2 = null
