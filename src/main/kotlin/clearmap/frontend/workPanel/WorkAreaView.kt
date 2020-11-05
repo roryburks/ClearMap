@@ -12,7 +12,7 @@ class WorkSectionView(
     private val ui: IComponentProvider,
     private val panel : ICrossPanel = ui.CrossPanel(),
     private val workAreaPanel: IWorkAreaPanel = JOGLWorkAreaPanel(),
-    private val controller : MapWorkController = MapWorkControllerProvider.controller.value
+    private val controller : WorkAreaController = WorkAreaControllerProvider.controller.value
 )  : IComponent by panel
 {
     private val workAreaContainer = ui.CrossPanel()
@@ -34,7 +34,17 @@ class WorkSectionView(
         //workAreaContainer.onResize += {calibrateScrolls()}
         //Hybrid.timing.createTimer(15, true) {Hybrid.gle.runInGLContext { penner.step() }}
 
-        workAreaPanel.injectDrawingRoutine { controller.draw(it) }
+        workAreaPanel.injectDrawingRoutine {  controller.draw(it) }
+        workAreaPanel.component.onMouseClick += {controller.handleMouse(it)}
+        workAreaPanel.component.onMouseDrag += {controller.handleMouse(it)}
+        workAreaPanel.component.onMouseEnter += {controller.handleMouse(it)}
+        workAreaPanel.component.onMouseExit += {controller.handleMouse(it)}
+        workAreaPanel.component.onMouseMove += {controller.handleMouse(it)}
+        workAreaPanel.component.onMousePress += {controller.handleMouse(it)}
+        workAreaPanel.component.onMouseRelease += {controller.handleMouse(it)}
+        controller.drawComponent = workAreaPanel.component
+
+
 
         coordinateLabel.text = "Coordinate Label"
 

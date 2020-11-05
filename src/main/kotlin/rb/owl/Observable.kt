@@ -35,5 +35,5 @@ class Observable<T> : IObservable<T>
     }
 }
 
-fun <T> Observable<T>.addObserver(trigger: T) : IContract = this.addObserver(trigger.observer())
+fun <T> IObservable<T>.addObserver(trigger: T) : IContract = this.addObserver(trigger.observer())
 
