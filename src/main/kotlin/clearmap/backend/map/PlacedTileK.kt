@@ -1,7 +1,9 @@
 package clearmap.backend.map
 
+import rb.glow.IGraphicsContext
 import rb.owl.Observable
 import rb.owl.bindable.Bindable
+import rb.vectrix.mathUtil.d
 import rb.vectrix.shapes.RectI
 
 data class PlacedTileK(
@@ -9,6 +11,9 @@ data class PlacedTileK(
     val y: Int,
     val tileSet: TileSet,
     val region: RectI )
+{
+    fun draw( gc: IGraphicsContext) { gc.renderImage(tileSet.image, x.d, y.d, imgPart = region) }
+}
 
 class PlacedTileBlob(k: PlacedTileK){
     val xBind = Bindable(k.x)
